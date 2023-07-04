@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .addproduct {
+            padding: 0.5rem 1rem;
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+        }
+
+        form {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+        }
+
+        h3 {
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 2rem;
+            text-transform: capitalize;
+            color: #757575;
+        }
+
+        .input-field {
+            display: flex;
+            width: 100%;
+        }
+
+        .input-field div {
+            width: 25%;
+        }
+
+        .input-field div input {
+            margin-left: 10px;
+            padding: 6px 5px;
+            width: 65%;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .input-field div label {
+            font-size: 1.3rem;
+            font-family: "Roboto", sans-serif;
+        }
+
+        /* //=========buttton */
+        .button {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        #addButton {
+            /* Add your custom CSS styles here */
+            font-family: "Roboto", sans-serif;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            width: 20%;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        #addButton::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        /* show all the book css */
+        .all-book-main {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 3rem;
+        }
+
+        .all-book-main .box {
+            padding: 1rem 1rem;
+            max-width: 23%;
+            min-width: 23%;
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+        }
+
+        .all-book-main .box p {
+            margin-top: 10px;
+        }
+
+        .operation-button {
+            margin-top: 1rem;
+        }
+
+        button {}
+
+        /* Modal */
+        .modal {
+            max-height: 100vh;
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+        } */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            max-height: 100vh;
+            overflow-y: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1.8rem;
+            text-transform: capitalize;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-field {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+
+        .input-field label {
+            width: 30%;
+            font-size: 1.2rem;
+        }
+
+        .input-field input {
+            width: 70%;
+            padding: 6px 10px;
+            font-size: 1rem;
+        }
+
+        #save-change-button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        #save-change-button:hover {
+            opacity: 0.8;
+        }
+
+        #upt {
+            margin-bottom: 10px;
+            color: #fff;
+            padding: 6px 20px;
+            background-color: #2fa4ff;
+            cursor: pointer;
+        }
+
+        #del {
+            margin-bottom: 10px;
+            padding: 6px 20px;
+            background-color: rgb(250 40 4);
+            color: #ffff;
+            cursor: pointer;
+        }
+
+        .title {
+            line-height: 1.2;
+        }
+
+        .author {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="addproduct">
+        <h3>inventoey managment</h3>
+        <form action="/addBook" method="POST">
+            <div class="input-field">
+                <div>
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" placeholder="Enter title here" required>
+                </div>
+                <div>
+                    <label for="author">Author</label>
+                    <input type="text" id="author" name="author" placeholder="Enter author here" required>
+                </div>
+                <div>
+                    <label for="price">Price</label>
+                    <input type="text" id="price" name="price" placeholder="Enter Price here" required>
+                </div>
+                <div>
+                    <label for="category">Category</label>
+                    <input type="text" id="category" name="category" placeholder="Enter category here" required>
+                </div>
+            </div>
+            <div class="button">
+                <input type="submit" id="addButton" value="Add">
+            </div>
+        </form>
+    </div>
+    <!-- show the BOOK -->
+    <h2>All Book</h2>
+    <div class="all-book-main">
+        <% books.forEach((book)=> { %>
+            <div class="box">
+                <p class="title">
+                    <%= book.title %>
+                </p>
+                <p class="author">
+                    <%= book.author %>
+                </p>
+                <p>
+                    <%= book.category %>
+                </p>
+                <div class="operation-button">
+                    <form action="/edit/<%= book._id %>" method="get">
+                        <button type="submit" id="upt" onclick="openPopup(event)">Update</button>
+                    </form>
+                    <form action="/deleteBook/<%= book._id %>" method="POST">
+                        <button type="submit" id="del">Delete</button>
+                    </form>
+                </div>
+            </div>
+            <% }) %>
+
+    </div>
+
+
+    </div>
+    <script>
+        // function openPopup(e) {
+        //     e.preventDefault();
+        //     var modal = document.getElementById("modal");
+        //     modal.style.display = "block";
+        // }
+
+        // function closePopup() {
+        //     var modal = document.getElementById("modal");
+        //     modal.style.display = "none";
+        // }
+    </script>
+</body>
+
+</html>
